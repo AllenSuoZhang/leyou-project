@@ -78,4 +78,33 @@ public class SpecificationServiceImpl implements SpecificationService {
 
         return this.specGroupMapper.deleteByPrimaryKey(id);
     }
+
+    /**
+     * 添加或编辑规格参数数据
+     * @param param
+     * @return
+     */
+    @Transactional
+    @Override
+    public int saveParam(SpecParam param) {
+        //规格组id为空，即为添加
+        int flag = 0;
+        if (StringUtils.isEmpty(param.getId())){
+            flag = this.specParamMapper.insert(param);
+        }else {
+            flag = this.specParamMapper.updateByPrimaryKeySelective(param);
+        }
+        return flag;
+    }
+
+    /**
+     * 根据规格参数id删除
+     * @param id
+     * @return
+     */
+    @Transactional
+    @Override
+    public int deleteParam(Long id) {
+        return this.specParamMapper.deleteByPrimaryKey(id);
+    }
 }

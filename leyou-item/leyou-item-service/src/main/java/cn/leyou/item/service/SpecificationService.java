@@ -13,4 +13,8 @@ public interface SpecificationService {
     int saveGroup(SpecGroup specGroup);
 
     int delGroupById(Long id);
+
+    int saveParam(SpecParam param);
+
+    int deleteParam(Long id);
 }

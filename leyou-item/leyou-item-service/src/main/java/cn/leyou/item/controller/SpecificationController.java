@@ -3,6 +3,7 @@ package cn.leyou.item.controller;
 import cn.leyou.item.pojo.SpecGroup;
 import cn.leyou.item.pojo.SpecParam;
 import cn.leyou.item.service.SpecificationService;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,6 +83,34 @@ public class SpecificationController {
     @DeleteMapping("group/{id}")
     public ResponseEntity<Void> delGroupById(@PathVariable("id") Long id){
         int flag = this.specificationService.delGroupById(id);
+        if (flag >= 1){
+            return ResponseEntity.ok(null);
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    /**
+     * 添加或编辑规格参数数据
+     * @param param
+     * @return
+     */
+    @PutMapping("param")
+    public ResponseEntity<Void> saveParam(@RequestBody SpecParam param){
+        int flag = this.specificationService.saveParam(param);
+        if (flag >= 1){
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    /**
+     * 根据规格参数id删除
+     * @param id
+     * @return
+     */
+    @DeleteMapping("param/{id}")
+    public ResponseEntity<Void> deleteParam(@PathVariable("id") Long id){
+        int flag = this.specificationService.deleteParam(id);
         if (flag >= 1){
             return ResponseEntity.ok(null);
         }
