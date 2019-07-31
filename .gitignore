@@ -28,3 +28,10 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+/.idea
+/leyou-gateway/target
+/leyou-common/target
+/leyou-item/leyou-item-interface/target
+/leyou-item/leyou-item-service/target
+/leyou-registry/target
+/leyou-upload/target
