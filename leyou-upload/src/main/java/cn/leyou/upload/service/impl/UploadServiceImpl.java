@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class UploadServiceImpl implements UploadService {
 
-    private static final List<String> CONTENT_TYPES = Arrays.asList("image/jpeg", "image/gif");
+    private static final List<String> CONTENT_TYPES = Arrays.asList("image/jpeg", "image/gif","image/png");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadServiceImpl.class);
 

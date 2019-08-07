@@ -39,8 +39,11 @@ public class SpecificationController {
      * @return
      */
     @GetMapping("params")
-    public ResponseEntity<List<SpecParam>> queryParams(@RequestParam("gid")Long gid){
-        List<SpecParam> params = this.specificationService.queryParams(gid);
+    public ResponseEntity<List<SpecParam>> queryParams(@RequestParam(value = "gid", required = false)Long gid,
+                                                       @RequestParam(value = "cid", required = false)Long cid,
+                                                       @RequestParam(value = "generic", required = false)Boolean generic,
+                                                       @RequestParam(value = "searching", required = false)Boolean searching){
+        List<SpecParam> params = this.specificationService.queryParams(gid, cid, generic, searching);
         if (CollectionUtils.isEmpty(params)){
             return ResponseEntity.notFound().build();
         }
@@ -54,11 +57,8 @@ public class SpecificationController {
      */
     @PostMapping("group")
     public ResponseEntity<Void> addGroup(@RequestBody SpecGroup group){
-        int flag = this.specificationService.saveGroup(group);
-        if (flag >= 1){
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        }
-        return ResponseEntity.badRequest().build();
+        this.specificationService.saveGroup(group);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     /**
@@ -68,11 +68,8 @@ public class SpecificationController {
      */
     @PutMapping("group")
     public ResponseEntity<Void> editGroup(@RequestBody SpecGroup group){
-        int flag = this.specificationService.saveGroup(group);
-        if (flag >= 1){
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        }
-        return ResponseEntity.badRequest().build();
+        this.specificationService.saveGroup(group);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     /**
@@ -82,25 +79,30 @@ public class SpecificationController {
      */
     @DeleteMapping("group/{id}")
     public ResponseEntity<Void> delGroupById(@PathVariable("id") Long id){
-        int flag = this.specificationService.delGroupById(id);
-        if (flag >= 1){
-            return ResponseEntity.ok(null);
-        }
-        return ResponseEntity.badRequest().build();
+        this.specificationService.delGroupById(id);
+        return ResponseEntity.noContent().build();
     }
 
     /**
-     * 添加或编辑规格参数数据
+     * 添加规格参数数据
+     * @param param
+     * @return
+     */
+    @PostMapping("param")
+    public ResponseEntity<Void> addParam(@RequestBody SpecParam param){
+        this.specificationService.saveParam(param);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    /**
+     * 编辑规格参数数据
      * @param param
      * @return
      */
     @PutMapping("param")
-    public ResponseEntity<Void> saveParam(@RequestBody SpecParam param){
-        int flag = this.specificationService.saveParam(param);
-        if (flag >= 1){
-            return ResponseEntity.status(HttpStatus.CREATED).build();
-        }
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<Void> editParam(@RequestBody SpecParam param){
+        this.specificationService.saveParam(param);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     /**
@@ -110,10 +112,7 @@ public class SpecificationController {
      */
     @DeleteMapping("param/{id}")
     public ResponseEntity<Void> deleteParam(@PathVariable("id") Long id){
-        int flag = this.specificationService.deleteParam(id);
-        if (flag >= 1){
-            return ResponseEntity.ok(null);
-        }
-        return ResponseEntity.badRequest().build();
+        this.specificationService.deleteParam(id);
+        return ResponseEntity.noContent().build();
     }
 }

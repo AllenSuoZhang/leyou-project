@@ -75,6 +75,7 @@ public class BrandServiceImpl implements BrandService {
     @Transactional
     @Override
     public void saveBrand(Brand brand, List<Long> cids) {
+        brand.setId(null);
         //先新增brand
         this.brandMapper.insertSelective(brand);
 
@@ -122,5 +123,15 @@ public class BrandServiceImpl implements BrandService {
             return false;
         }
         return false;
+    }
+
+    /**
+     * 根据分类id获取所属品牌
+     * @param cid
+     * @return
+     */
+    @Override
+    public List<Brand> queryBrandsByCid(Long cid) {
+        return this.brandMapper.queryBrandsByCid(cid);
     }
 }

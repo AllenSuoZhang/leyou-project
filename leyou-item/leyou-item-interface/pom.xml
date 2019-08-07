@@ -20,5 +20,14 @@
             <artifactId>persistence-api</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.leyou.common</groupId>
+            <artifactId>leyou-common</artifactId>
+            <version>${leyou.latest.version}</version>
+        </dependency>
     </dependencies>
 </project>
