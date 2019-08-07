@@ -44,7 +44,7 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
 
-        <!--mapperto通用-->
+        <!--mapper通用-->
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>

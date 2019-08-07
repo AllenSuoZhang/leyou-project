@@ -110,4 +110,21 @@ public class Spu {
     public void setLastUpdateTime(Date lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Spu{" +
+                "id=" + id +
+                ", brandId=" + brandId +
+                ", cid1=" + cid1 +
+                ", cid2=" + cid2 +
+                ", cid3=" + cid3 +
+                ", title='" + title + '\'' +
+                ", subTitle='" + subTitle + '\'' +
+                ", saleable=" + saleable +
+                ", valid=" + valid +
+                ", createTime=" + createTime +
+                ", lastUpdateTime=" + lastUpdateTime +
+                '}';
+    }
 }

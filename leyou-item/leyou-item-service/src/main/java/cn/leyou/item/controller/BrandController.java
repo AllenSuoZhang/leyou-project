@@ -65,7 +65,7 @@ public class BrandController {
      * @return
      */
     @GetMapping("{bid}")
-    public ResponseEntity<Brand> queryBrandByBid(@PathVariable (value = "bid",required = true) Long bid){
+    public ResponseEntity<Brand> queryBrandByBid(@PathVariable ("bid") Long bid){
         Brand brand = this.brandService.queryBrandByBid(bid);
         if (StringUtils.isEmpty(brand)) {
             return ResponseEntity.notFound().build();
@@ -80,11 +80,21 @@ public class BrandController {
      */
     @PostMapping("del")
     public ResponseEntity<Void> delBrandByBid(@RequestParam(value = "id", required = true)Long bid){
-        Boolean flag = this.brandService.delBrandByBid(bid);
+        this.brandService.delBrandByBid(bid);
+        return ResponseEntity.noContent().build();
+    }
 
-        if (!flag){
-            return ResponseEntity.badRequest().build();
+    /**
+     * 根据分类id获取所属品牌
+     * @param cid
+     * @return
+     */
+    @GetMapping("cid/{cid}")
+    public ResponseEntity<List<Brand>> queryBrandsByCid(@PathVariable("cid")Long cid){
+        List<Brand> brands = this.brandService.queryBrandsByCid(cid);
+        if (CollectionUtils.isEmpty(brands)){
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(brands);
     }
 }
