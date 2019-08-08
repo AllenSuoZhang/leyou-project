@@ -3,6 +3,7 @@ package cn.leyou.item.service;
 import cn.leyou.common.pojo.PageResult;
 import cn.leyou.item.bo.SpuBo;
 import cn.leyou.item.pojo.Sku;
+import cn.leyou.item.pojo.Spu;
 import cn.leyou.item.pojo.SpuDetail;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface GoodsService {
     List<Sku> querySkusBySpuId(Long spuId);
 
     void updateGoods(SpuBo spuBo);
+
+    Spu querySpuById(Long id);
 }

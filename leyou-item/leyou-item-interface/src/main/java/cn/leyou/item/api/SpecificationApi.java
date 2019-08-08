@@ -1,7 +1,9 @@
 package cn.leyou.item.api;
 
+import cn.leyou.item.pojo.SpecGroup;
 import cn.leyou.item.pojo.SpecParam;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,4 +21,8 @@ public interface SpecificationApi {
                                                        @RequestParam(value = "cid", required = false)Long cid,
                                                        @RequestParam(value = "generic", required = false)Boolean generic,
                                                        @RequestParam(value = "searching", required = false)Boolean searching);
+
+    // 查询规格参数组，及组内参数
+    @GetMapping("group/param/{cid}")
+    List<SpecGroup> querySpecsByCid(@PathVariable("cid") Long cid);
 }

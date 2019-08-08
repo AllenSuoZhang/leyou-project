@@ -17,4 +17,6 @@ public interface SpecificationService {
     int saveParam(SpecParam param);
 
     int deleteParam(Long id);
+
+    List<SpecGroup> querySpecsByCid(Long cid);
 }

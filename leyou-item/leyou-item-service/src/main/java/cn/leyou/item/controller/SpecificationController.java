@@ -115,4 +115,18 @@ public class SpecificationController {
         this.specificationService.deleteParam(id);
         return ResponseEntity.noContent().build();
     }
+
+    /**
+     * 根据分类id查询规格组以及规格组中的规格参数
+     * @param cid
+     * @return
+     */
+    @GetMapping("group/param/{cid}")
+    public ResponseEntity<List<SpecGroup>> querySpecsByCid(@PathVariable("cid") Long cid){
+        List<SpecGroup> list = this.specificationService.querySpecsByCid(cid);
+        if(list == null || list.size() == 0){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(list);
+    }
 }
