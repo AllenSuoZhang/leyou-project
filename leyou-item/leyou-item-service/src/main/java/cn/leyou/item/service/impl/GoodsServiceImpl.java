@@ -9,6 +9,8 @@ import cn.leyou.item.service.GoodsService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private AmqpTemplate amqpTemplate;
 
     /**
      * 根据条件分页查询商品列表
@@ -139,6 +144,8 @@ public class GoodsServiceImpl implements GoodsService {
         //添加sku
         //添加库存
         saveSkuAndStock(spuBo);
+
+        sendMessage(spuBo.getId(), "insert");
     }
 
     /**
@@ -212,6 +219,8 @@ public class GoodsServiceImpl implements GoodsService {
 
         // 更新spu详情
         this.spuDetailMapper.updateByPrimaryKeySelective(spuBo.getSpuDetail());
+
+        sendMessage(spuBo.getId(), "update");
     }
 
     /**
@@ -240,5 +249,15 @@ public class GoodsServiceImpl implements GoodsService {
             stock.setStock(sku.getStock());
             this.stockMapper.insertSelective(stock);
         });
+    }
+
+    private void sendMessage(Long id, String type){
+        // 发送消息
+        try {
+            this.amqpTemplate.convertAndSend("item." + type, id);
+        } catch (Exception e) {
+//            logger.error("{}商品消息发送异常，商品id：{}", type, id, e);
+            e.printStackTrace();
+        }
     }
 }
