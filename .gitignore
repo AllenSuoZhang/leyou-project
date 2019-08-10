@@ -14,7 +14,6 @@ HELP.md
 
 ### IntelliJ IDEA ###
 .idea
-.idea/
 *.iws
 *.iml
 *.ipr
@@ -36,3 +35,4 @@ HELP.md
 /leyou-item/leyou-item-service/target
 /leyou-registry/target
 /leyou-upload/target
+/.idea/workspace.xml
