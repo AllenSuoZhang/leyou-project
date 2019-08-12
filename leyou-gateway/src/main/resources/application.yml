@@ -12,7 +12,8 @@ zuul:
   prefix: /api # 路由路径前缀
   routes:
     item-service: /item/** # 商品微服务的映射路径
-    search-service: /search/**
+    search-service: /search/** # 搜索微服务
+    user-service: /user/** # 用户微服务
   host:
     connect-timeout-millis: 150000 #HTTP连接超时要比Hystrix的大
     socket-timeout-millis: 600000   #socket超时
