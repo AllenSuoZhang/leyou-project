@@ -1,4 +1,4 @@
-package cn.leyou.mapper;
+package cn.leyou.user.mapper;
 
 import cn.leyou.pojo.User;
 import tk.mybatis.mapper.common.Mapper;
