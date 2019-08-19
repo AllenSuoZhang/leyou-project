@@ -103,7 +103,8 @@ public class UserService {
         //新增用户
         user.setId(null);
         user.setCreated(new Date());
-        return this.userMapper.insertSelective(user) >= 1;
+
+        return this.userMapper.insert(user) >= 1;
     }
 
     /**
