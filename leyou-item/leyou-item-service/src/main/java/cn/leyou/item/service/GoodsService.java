@@ -20,4 +20,6 @@ public interface GoodsService {
     void updateGoods(SpuBo spuBo);
 
     Spu querySpuById(Long id);
+
+    Sku querySkuById(Long id);
 }

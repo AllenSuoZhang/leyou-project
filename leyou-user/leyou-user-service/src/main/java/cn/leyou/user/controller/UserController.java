@@ -1,6 +1,6 @@
 package cn.leyou.user.controller;
 
-import cn.leyou.pojo.User;
+import cn.leyou.user.pojo.User;
 import cn.leyou.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,7 +55,6 @@ public class UserController {
      */
     @PostMapping("register")
     public ResponseEntity<Void> register(@Valid User user, @RequestParam(value = "code", required = true)String code){
-        this.userService.register(user, code);
         Boolean boo = this.userService.register(user, code);
         if (boo == null || !boo) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

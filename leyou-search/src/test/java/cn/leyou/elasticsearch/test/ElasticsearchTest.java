@@ -35,10 +35,10 @@ public class ElasticsearchTest {
 
     @Test
     public void createIndex(){
-        this.elasticsearchTemplate.deleteIndex(Goods.class);
-        // 创建索引库，以及映射
-        this.elasticsearchTemplate.createIndex(Goods.class);
-        this.elasticsearchTemplate.putMapping(Goods.class);
+//        this.elasticsearchTemplate.deleteIndex(Goods.class);
+//        // 创建索引库，以及映射
+//        this.elasticsearchTemplate.createIndex(Goods.class);
+//        this.elasticsearchTemplate.putMapping(Goods.class);
 
         Integer page = 1;
         Integer rows = 100;
@@ -50,6 +50,7 @@ public class ElasticsearchTest {
             List<SpuBo> items = pageResult.getItems();
             List<Goods> goods = items.stream().map(spuBo -> {
                 try {
+                    System.out.println(spuBo.getId());
                     return this.searchService.buildGoods(spuBo);
                 } catch (IOException e) {
                     e.printStackTrace();

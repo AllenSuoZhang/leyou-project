@@ -1,4 +1,4 @@
-package cn.leyou.pojo;
+package cn.leyou.user.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
@@ -77,5 +77,17 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", created=" + created +
+                ", salt='" + salt + '\'' +
+                '}';
     }
 }

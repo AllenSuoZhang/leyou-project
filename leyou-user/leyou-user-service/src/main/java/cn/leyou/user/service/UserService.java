@@ -2,7 +2,7 @@ package cn.leyou.user.service;
 
 import cn.leyou.common.util.NumberUtils;
 import cn.leyou.user.mapper.UserMapper;
-import cn.leyou.pojo.User;
+import cn.leyou.user.pojo.User;
 import cn.leyou.user.utils.CodecUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.sound.midi.Soundbank;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -98,7 +99,9 @@ public class UserService {
         user.setSalt(salt);
 
         //密码加盐加密
+        System.out.println(user.getPassword());
         user.setPassword(CodecUtils.md5Hex(user.getPassword(), salt));
+        System.out.println(user.getPassword());
 
         //新增用户
         user.setId(null);
@@ -114,19 +117,19 @@ public class UserService {
      * @return
      */
     public User queryUser(String username, String password) {
-        // 查询
+        // 根据用户名去数据库中查找用户
         User record = new User();
         record.setUsername(username);
         User user = this.userMapper.selectOne(record);
-        // 校验用户名
-        if (user == null) {
+        if (user == null){
             return null;
         }
-        // 校验密码
-        if (!user.getPassword().equals(CodecUtils.md5Hex(password, user.getSalt()))) {
-            return null;
+        // 获取盐，对用户输入的密码进行加盐加密
+        password = CodecUtils.md5Hex(password, user.getSalt());
+        // 和数据库中的密码进行比较
+        if (org.apache.commons.lang3.StringUtils.equals(password, user.getPassword())){
+            return user;
         }
-        // 用户名密码都正确
-        return user;
+        return null;
     }
 }
